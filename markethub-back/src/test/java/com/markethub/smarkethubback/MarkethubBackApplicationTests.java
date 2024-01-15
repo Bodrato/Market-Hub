@@ -1,10 +1,10 @@
-package com.markethub;
+package com.markethub.smarkethubback;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MarketHubApplicationTests {
+class MarkethubBackApplicationTests {
 
 	@Test
 	void contextLoads() {

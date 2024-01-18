@@ -12,57 +12,55 @@ import com.markethub.smarkethubback.model.Account;
 
 @Service
 public class AccountServiceImpl implements IAccountService {
-	@Autowired
-	private IAccountDAO accountDAO;
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Account> findAll() {
-		return (List<Account>) accountDAO.findAll();
-	}
+    @Autowired
+    private IAccountDAO accountDAO;
 
-	@Override
-	public Account save(Account account) {
-	    Optional<Account> existingAccount = accountDAO.findByEmail(account.getEmail());
+    @Override
+    @Transactional(readOnly = true)
+    public List<Account> findAll() {
+        return (List<Account>) accountDAO.findAll();
+    }
 
-	    if (existingAccount.isPresent()) {
-	        throw new IllegalStateException("An account already exists with the same email");
-	    }
+    @Override
+    public Account save(Account account) {
+        validateUniqueEmail(account.getEmail());
+        accountDAO.save(account);
+        return account;
+    }
 
-	    accountDAO.save(account);
+    @Override
+    @Transactional(readOnly = true)
+    public Account findByEmail(String email) {
+        return accountDAO.findByEmail(email).orElse(null);
+    }
 
-	    return account;
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public Account findById(long id) {
+        return accountDAO.findById(id).orElse(null);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public Account findByEmail(String email) {
-		return accountDAO.findByEmail(email).orElse(null);
-	}
+    @Override
+    public void delete(Long id) {
+        accountDAO.deleteById(id);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public Account findById(long id) {
-		return accountDAO.findById(id).orElse(null);
-	}
+    @Override
+    public Account login(LoginObject loginObject) {
+        return accountDAO.findByEmailAndPassword(loginObject.getEmail(), loginObject.getPassword()).orElse(null);
+    }
 
-	@Override
-	public void delete(Long id) {
-		accountDAO.deleteById(id);
-	}
+    @Override
+    public Account update(Account account) {
+        accountDAO.save(account);
+        return account;
+    }
 
-	@Override
-	public Account login(LoginObject loginObject) {
-		return accountDAO.findByEmailAndPassword(
-				loginObject.getEmail(), 
-				loginObject.getPassword()
-			).orElse(null);
-	}
-	
-	@Override
-	public Account update(Account account) {
-		accountDAO.save(account);
-		return account;
-	}
-
+    private void validateUniqueEmail(String email) {
+        Optional<Account> existingAccount = accountDAO.findByEmail(email);
+        if (existingAccount.isPresent()) {
+            throw new IllegalStateException("An account already exists with the same email");
+        }
+    }
 }

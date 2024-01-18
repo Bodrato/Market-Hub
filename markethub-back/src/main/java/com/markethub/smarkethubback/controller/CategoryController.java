@@ -18,6 +18,8 @@ import com.markethub.smarkethubback.model.Category;
 import com.markethub.smarkethubback.model.Product;
 import com.markethub.smarkethubback.service.ICategoryService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -43,10 +45,21 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
-        category.setIdCategory(id);
-        Category updatedCategory = categoryService.update(category);
-        return ResponseEntity.ok(updatedCategory);
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+        try {
+            category.setIdCategory(id);
+            Category updatedCategory = categoryService.update(category);
+            
+            if (updatedCategory != null) {
+                return ResponseEntity.ok(updatedCategory);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the category");
+        }
     }
 
     @DeleteMapping("/{id}")

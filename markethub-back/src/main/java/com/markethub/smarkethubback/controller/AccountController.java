@@ -18,6 +18,8 @@ import com.markethub.smarkethubback.model.Account;
 import com.markethub.smarkethubback.service.IAccountService;
 import com.markethub.smarkethubback.service.LoginObject;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
@@ -47,10 +49,16 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Account> updateAccount(@PathVariable Long id, @RequestBody Account account) {
-        account.setIdAccount(id);
-        Account updatedAccount = accountService.update(account);
-        return ResponseEntity.ok(updatedAccount);
+    public ResponseEntity<?> updateAccount(@PathVariable Long id, @RequestBody Account account) {
+        try {
+            account.setIdAccount(id);
+            Account updatedAccount = accountService.update(account);
+            return ResponseEntity.ok(updatedAccount);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found with ID: " + id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the account");
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -66,6 +74,4 @@ public class AccountController {
                 ResponseEntity.ok(loggedInAccount) :
                 ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
-
-
 }

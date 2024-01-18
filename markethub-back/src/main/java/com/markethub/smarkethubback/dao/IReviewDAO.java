@@ -1,4 +1,4 @@
-package dao;
+package com.markethub.smarkethubback.dao;
 
 import org.springframework.data.repository.CrudRepository;
 

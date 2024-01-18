@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.markethub.smarkethubback.dao.IAccountDAO;
 import com.markethub.smarkethubback.model.Account;
 
-import dao.IAccountDAO;
-
+@Service
 public class AccountServiceImpl implements IAccountService {
 	@Autowired
 	private IAccountDAO accountDAO;

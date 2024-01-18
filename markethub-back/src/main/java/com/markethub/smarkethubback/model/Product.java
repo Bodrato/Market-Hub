@@ -2,6 +2,8 @@ package com.markethub.smarkethubback.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,6 +47,7 @@ public class Product {
     private Account account;
 
     @ManyToMany
+    @JsonIgnoreProperties("products")
     @JoinTable(
             name = "PRODUCT_CATEGORY",
             joinColumns = @JoinColumn(name = "id_product"),

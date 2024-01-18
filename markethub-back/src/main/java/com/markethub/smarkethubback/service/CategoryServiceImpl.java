@@ -1,6 +1,9 @@
 package com.markethub.smarkethubback.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,11 +47,17 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @SuppressWarnings("unchecked")
-	@Transactional(readOnly=true)
-	@Override
+    @Override
+    @Transactional(readOnly = true)
     public List<Product> getAllProductsByCategoryId(long idCategory) {
         Category category = categoryDAO.findById(idCategory).orElse(null);
-        return (category != null) ? (List<Product>) category.getProducts() : null;
+        
+        if (category != null) {
+            Set<Product> products = category.getProducts();
+            return new ArrayList<>(products);
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     @Override

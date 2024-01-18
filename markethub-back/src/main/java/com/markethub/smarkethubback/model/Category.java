@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -32,6 +33,7 @@ public class Category {
 
     @ManyToMany(mappedBy = "categories")
     @JsonIgnoreProperties("categories")
+    @EqualsAndHashCode.Exclude
     private Set<Product> products;
 
 }

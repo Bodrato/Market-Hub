@@ -36,5 +36,8 @@ public class Account {
 
     @Column(name = "password")
     private String password;
+    
+    @Column(name = "image")
+    private String image;
 
 }

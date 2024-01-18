@@ -36,6 +36,9 @@ public class Product {
 
     @Column(name = "visible")
     private Boolean visible;
+    
+    @Column(name = "image")
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "id_account")

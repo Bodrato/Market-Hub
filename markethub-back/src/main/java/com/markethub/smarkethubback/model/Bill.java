@@ -1,6 +1,6 @@
 package com.markethub.smarkethubback.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,11 +24,14 @@ public class Bill {
     @Column(name = "id_bill")
     private Long idBill;
 
-    @Column(name = "bill_date")
+    @Column(name = "bill_date", columnDefinition = "timestamp without time zone")
     private Timestamp billDate;
-
+    
     @Column(name = "status")
     private String status;
+    
+    @Column(name =  "valid")
+    private boolean valid = true;
 
     @ManyToOne
     @JoinColumn(name = "id_account_buyer")
@@ -36,5 +40,12 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "id_product")
     private Product product;
+    
+    @PrePersist
+    public void prePersist() {
+        if (billDate == null) {
+            billDate = new Timestamp(System.currentTimeMillis());
+        }
+    }
 
 }

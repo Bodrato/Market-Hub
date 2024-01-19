@@ -25,52 +25,54 @@ public class CategoryServiceImpl implements ICategoryService {
     private IProductDAO productDAO;
 
     @Override
-	@Transactional(readOnly=true)
+    @Transactional(readOnly=true)
     public List<Category> findAll() {
         return (List<Category>) categoryDAO.findAll();
     }
 
     @Override
+    @Transactional
     public Category save(Category category) {
         return categoryDAO.save(category);
     }
 
     @Override
-	@Transactional(readOnly=true)
+    @Transactional(readOnly=true)
     public Category findById(long id) {
-        return categoryDAO.findById(id).orElse(null);
+        return categoryDAO.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         categoryDAO.deleteById(id);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
     public List<Product> getAllProductsByCategoryId(long idCategory) {
-        Category category = categoryDAO.findById(idCategory).orElse(null);
-        
-        if (category != null) {
-            Set<Product> products = category.getProducts();
-            return new ArrayList<>(products);
-        } else {
-            return Collections.emptyList();
-        }
+        Category category = categoryDAO.findById(idCategory)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + idCategory));
+
+        Set<Product> products = category.getProducts();
+        return new ArrayList<>(products);
     }
 
     @Override
+    @Transactional
     public void addProductToCategory(long idProduct, long idCategory) {
-        Product product = productDAO.findById(idProduct).orElse(null);
-        Category category = categoryDAO.findById(idCategory).orElse(null);
+        Product product = productDAO.findById(idProduct)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + idProduct));
+        Category category = categoryDAO.findById(idCategory)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + idCategory));
 
-        if (product != null && category != null) {
-            category.getProducts().add(product);
-            categoryDAO.save(category);
-        }
+        category.getProducts().add(product);
+        categoryDAO.save(category);
     }
 
+    @Override
+    @Transactional
     public Category update(Category category) {
         Category existingCategory = categoryDAO.findById(category.getIdCategory())
                 .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + category.getIdCategory()));

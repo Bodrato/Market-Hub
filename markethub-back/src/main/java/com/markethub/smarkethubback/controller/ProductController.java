@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.markethub.smarkethubback.model.Bill;
 import com.markethub.smarkethubback.model.Category;
 import com.markethub.smarkethubback.model.Product;
 import com.markethub.smarkethubback.service.IProductService;
@@ -79,5 +80,16 @@ public class ProductController {
         productService.addCategoryToProduct(idProduct, idCategory);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+    
+    @GetMapping("/{id}/bill")
+    public ResponseEntity<Bill> getBillByProductId(@PathVariable Long id) {
+        try {
+            Bill bill = productService.getBillByProductId(id);
+            return ResponseEntity.ok(bill);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.markethub.smarkethubback.dao.IAccountDAO;
 import com.markethub.smarkethubback.model.Account;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AccountServiceImpl implements IAccountService {
@@ -23,6 +26,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
+    @Transactional
     public Account save(Account account) {
         validateUniqueEmail(account.getEmail());
         accountDAO.save(account);
@@ -32,26 +36,34 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     @Transactional(readOnly = true)
     public Account findByEmail(String email) {
-        return accountDAO.findByEmail(email).orElse(null);
+        return accountDAO.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Account not found with email: " + email));
     }
 
     @Override
     @Transactional(readOnly = true)
     public Account findById(long id) {
-        return accountDAO.findById(id).orElse(null);
+        return accountDAO.findById(id).orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + id));
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        accountDAO.deleteById(id);
+        try {
+            accountDAO.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("Account not found with id: " + id);
+        }
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Account login(LoginObject loginObject) {
-        return accountDAO.findByEmailAndPassword(loginObject.getEmail(), loginObject.getPassword()).orElse(null);
+        return accountDAO.findByEmailAndPassword(loginObject.getEmail(), loginObject.getPassword())
+                .orElseThrow(() -> new EntityNotFoundException("Account not found for the provided credentials"));
     }
 
     @Override
+    @Transactional
     public Account update(Account account) {
         accountDAO.save(account);
         return account;

@@ -37,9 +37,6 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "visible")
-    private Boolean visible;
-    
     @Column(name = "image")
     private String image;
 

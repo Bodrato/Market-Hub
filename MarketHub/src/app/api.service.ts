@@ -15,4 +15,10 @@ export class ApiService {
     const url = `${this.apiUrl}/accounts`;
     return this.http.post(url, account) as Observable<Record<string, string>>;
   }
+
+  // POST LOGIN
+  public getAccount(account: Record<string, string>): Observable<Record<string, string>> {
+    const url = `${this.apiUrl}/accounts/login`;
+    return this.http.post(url, account) as Observable<Record<string, string>>;
+  }
 }

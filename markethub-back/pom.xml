@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.markethub</groupId>
 	<artifactId>markethub-back</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<name>markethub-back</name>
 	<description>Markethub back</description>
 	<properties>

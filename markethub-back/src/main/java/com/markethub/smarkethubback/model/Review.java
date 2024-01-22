@@ -33,11 +33,10 @@ public class Review {
     private Timestamp reviewDate;
 
     @ManyToOne
-    @JoinColumn(name = "id_account_buyer")
-    private Account accountBuyer;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "id_account_seller")
-    private Account accountSeller;
-
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

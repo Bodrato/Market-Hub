@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.markethub.smarkethubback.dao.IAccountDAO;
+import com.markethub.smarkethubback.dao.IProductDAO;
 import com.markethub.smarkethubback.model.Account;
+import com.markethub.smarkethubback.model.Product;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -18,6 +20,9 @@ public class AccountServiceImpl implements IAccountService {
 
     @Autowired
     private IAccountDAO accountDAO;
+    
+    @Autowired
+    private IProductDAO productDAO;
 
     @Override
     @Transactional(readOnly = true)
@@ -73,6 +78,21 @@ public class AccountServiceImpl implements IAccountService {
         Optional<Account> existingAccount = accountDAO.findByEmail(email);
         if (existingAccount.isPresent()) {
             throw new IllegalStateException("An account already exists with the same email");
+        }
+    }
+
+    @Override
+    public List<Product> getAllProductByAccountId(long id) {
+        try {
+            Optional<Account> optionalAccount = accountDAO.findById(id);
+            if (optionalAccount.isPresent()) {
+                Account account = optionalAccount.get();
+                return productDAO.findByAccount(account);
+            } else {
+                throw new EntityNotFoundException("Account with id " + id + " not found");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error getting products by account id: " + id, e);
         }
     }
 }

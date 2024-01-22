@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.markethub.smarkethubback.model.Account;
+import com.markethub.smarkethubback.model.Product;
 import com.markethub.smarkethubback.service.IAccountService;
 import com.markethub.smarkethubback.service.LoginObject;
 
@@ -73,5 +74,18 @@ public class AccountController {
         return loggedInAccount != null ?
                 ResponseEntity.ok(loggedInAccount) :
                 ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
+    
+    @GetMapping("/{accountId}/getProducts")
+    public ResponseEntity<List<Product>> getAllProductByAccountId(@PathVariable Long accountId) {
+        try {
+            List<Product> products = accountService.getAllProductByAccountId(accountId);
+            if (products.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

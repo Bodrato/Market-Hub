@@ -13,6 +13,7 @@ import com.markethub.smarkethubback.service.IProductService;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {

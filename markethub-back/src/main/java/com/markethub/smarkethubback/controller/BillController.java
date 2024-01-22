@@ -14,6 +14,7 @@ import com.markethub.smarkethubback.service.IBillService;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api/bills")
 public class BillController {

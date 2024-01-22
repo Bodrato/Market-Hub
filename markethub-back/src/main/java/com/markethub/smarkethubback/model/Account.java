@@ -50,10 +50,5 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     @EqualsAndHashCode.Exclude
-    private List<Review> reviews;
-    
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    @EqualsAndHashCode.Exclude
     private List<Product> products;
 }

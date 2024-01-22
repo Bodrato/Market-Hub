@@ -57,9 +57,4 @@ public class Product {
     )
     @EqualsAndHashCode.Exclude
     private Set<Category> categories;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    @EqualsAndHashCode.Exclude
-    private List<Review> reviews;
 }

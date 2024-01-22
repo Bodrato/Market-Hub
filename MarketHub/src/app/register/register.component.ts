@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class RegisterComponent {
   constructor(private apiService: ApiService, public router: Router) { }
+  errorMessage: string = '';
 
   registerForm = new FormGroup({
     nickname: new FormControl('',[Validators.required]),
@@ -31,9 +32,22 @@ export class RegisterComponent {
     const account = this.registerForm.value as Record<string, string>;
 
     this.apiService.saveAccount(account).subscribe({
-      next: (data) => { alert(data) },
+      //TODO
+      next: (data) => {  },
       complete: () => { this.router.navigate(['home']) },
-      error: (e) => { alert(e) }
+      error: (e) => { 
+          switch (e.status) {
+            case 400:
+              this.errorMessage = 'Error 400: La solicitud es inválida.';
+              break;
+            case 500:
+              this.errorMessage = 'Error 500: Error interno del servidor.';
+              break;
+            default:
+              this.errorMessage = 'Error desconocido.';
+              break;
+          }
+      }
     });
 
   }

@@ -42,7 +42,7 @@ export class LoginComponent {
               this.errorMessage = 'Error 500: Error interno del servidor.';
               break;
             case 404:
-             this.errorMessage = 'Error 404: No existe el usuario con ese email o contraseña.';
+             this.errorMessage = 'No existe el usuario con ese email o contraseña.';
             break;
             default:
               this.errorMessage = 'Error desconocido.';

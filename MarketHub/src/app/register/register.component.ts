@@ -4,11 +4,12 @@ import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, FooterComponent],
   providers: [ApiService],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'

@@ -4,12 +4,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, FooterComponent],
   providers: [ApiService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

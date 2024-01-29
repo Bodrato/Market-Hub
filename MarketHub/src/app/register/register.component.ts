@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from '../footer/footer.component';
+import { Account } from '../model/Account';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,7 @@ export class RegisterComponent {
   register() {
     if(this.registerForm.invalid) return;
     
-    const account = this.registerForm.value as Record<string, string>;
+    const account = this.registerForm.value as Account;
 
     this.apiService.saveAccount(account).subscribe({
       //TODO

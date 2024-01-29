@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from '../footer/footer.component';
+import { Account } from '../model/Account';
 
 
 @Component({
@@ -28,11 +29,10 @@ export class LoginComponent {
   login(){
     if(this.loginForm.invalid) return;
 
-    const loginObject: Record<string, string> = this.loginForm.value as Record<string, string>;
+    const loginObject: Account = this.loginForm.value as Account;
 
     this.apiService.getAccount(loginObject).subscribe({
-      //TODO
-      next: (data) => {  },
+      next: (data) => { localStorage.setItem('Account', JSON.stringify(data)) },
       complete: () => { this.router.navigate(['home']) },
       error: (e) => { 
           switch (e.status) {

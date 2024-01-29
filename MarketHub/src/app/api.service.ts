@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Account } from './model/Account';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,14 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   // POST ACCOUNT
-  public saveAccount(account: Record<string, string>): Observable<Record<string, string>> {
+  public saveAccount(account: Account): Observable<Account> {
     const url = `${this.apiUrl}/accounts`;
-    return this.http.post(url, account) as Observable<Record<string, string>>;
+    return this.http.post(url, account) as Observable<Account>;
   }
 
   // POST LOGIN
-  public getAccount(account: Record<string, string>): Observable<Record<string, string>> {
+  public getAccount(account: Account): Observable<Account> {
     const url = `${this.apiUrl}/accounts/login`;
-    return this.http.post(url, account) as Observable<Record<string, string>>;
+    return this.http.post(url, account) as Observable<Account>;
   }
 }

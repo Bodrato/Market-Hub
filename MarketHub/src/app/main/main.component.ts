@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { Account } from '../model/Account';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class MainComponent {
 
   ngOnInit() {
     this.loadProducts();
+    const account: Account = JSON.parse(localStorage.getItem('Account') || '{}');
   }
 
   loadProducts() {

@@ -29,4 +29,10 @@ export class ApiService {
     const url = `${this.apiUrl}/products`;
     return this.http.get(url) as Observable<Product[]>;
   }
+
+  // GET PRODUCT BY ID
+  public getProductById(idProduct:number):Observable<Product> {
+    const url =`${this.apiUrl}/products/${idProduct}`
+    return this.http.get(url) as Observable<Product>;
+  }
 }

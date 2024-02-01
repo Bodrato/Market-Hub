@@ -1,0 +1,50 @@
+.item-cart {
+  border: 1px solid #ddd; /* Slightly lighter border color for better contrast */
+  padding: 15px; /* Increased padding for better spacing */
+  margin-bottom: 15px; /* Increased margin for better separation between items */
+  border-radius: 8px; /* Rounded corners for a modern look */
+
+  /* Shadow for a subtle lift effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Flexbox for better alignment */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Optional: Add transition for smoother effects */
+  transition: all 0.3s ease;
+}
+
+.item-cart:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+  transform: scale(1.02); /* Slight scale-up effect on hover */
+}
+
+.item-cart h2 {
+  margin-bottom: 10px; /* Increased margin for better spacing */
+}
+
+.item-cart p {
+  margin: 5px 0; /* Adjusted margin for better spacing */
+}
+
+.item-cart label {
+  display: block;
+  margin-top: 10px; /* Increased margin for better spacing */
+}
+
+.item-cart input {
+  width: 60px; /* Adjusted width for the quantity input */
+  padding: 5px; /* Adjusted padding for better appearance */
+  margin-top: 5px; /* Increased margin for better spacing */
+  border: 1px solid #ddd; /* Slightly lighter border color for better contrast */
+  border-radius: 4px; /* Rounded corners for a modern look */
+  outline: none; /* Removed default input outline */
+}
+
+/* Optional: Add styling for the input on focus */
+.item-cart input:focus {
+  border-color: #3498db; /* Highlight border color on focus */
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.5); /* Highlight box shadow on focus */
+}

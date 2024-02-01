@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Account } from './model/Account';
+import { Product } from './model/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,11 @@ export class ApiService {
   public getAccount(account: Account): Observable<Account> {
     const url = `${this.apiUrl}/accounts/login`;
     return this.http.post(url, account) as Observable<Account>;
+  }
+
+  // Get PRODUCTS
+  public getProduts(): Observable<Product[]> {
+    const url = `${this.apiUrl}/products`;
+    return this.http.get(url) as Observable<Product[]>;
   }
 }

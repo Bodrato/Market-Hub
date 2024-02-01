@@ -1,0 +1,64 @@
+
+
+/* Style the product container */
+.product {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 30px;
+    margin: 20px;
+}
+
+/* Style the product image container */
+.product-image {
+    flex-shrink: 0; /* Prevent image from shrinking */
+    margin-right: 20px;
+}
+
+/* Style the product image */
+.product-img img {
+    max-width: 100%;
+    height: 500px;
+    width: 500px;
+}
+
+/* Style the product details container */
+.product-details {
+    flex-grow: 1;
+}
+
+/* Style the product details text */
+.product-details h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.product-details p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+/* Style the buttons */
+.product-details button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-right: 15px;
+}
+
+.product-details button:hover {
+    background-color: #45a049;
+}
+
+/* Style the Buy Now button differently */
+.product-details .buy-now {
+    background-color: #3498db;
+    margin-right: 0;
+}
+
+.product-details .buy-now:hover {
+    background-color: #2980b9;
+}

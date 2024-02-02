@@ -31,8 +31,14 @@ export class ApiService {
   }
 
   // GET PRODUCT BY ID
-  public getProductById(idProduct:number):Observable<Product> {
-    const url =`${this.apiUrl}/products/${idProduct}`
+  public getProductById(id: number): Observable<Product> {
+    const url = `${this.apiUrl}/products/${id}`;
     return this.http.get(url) as Observable<Product>;
+  }
+
+  // GET ACCOUNT BY ID
+  public getAccountById(id: number | undefined): Observable<Account> {
+    const url = `${this.apiUrl}/accounts/${id}`;
+    return this.http.get(url) as Observable<Account>;
   }
 }

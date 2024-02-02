@@ -1,7 +1,7 @@
 export interface Account {
-    id_account: number,
+    idAccount: number,
     nickname: string,
-    real_name: string,
+    realName: string,
     address: string,
     email: string,
     image: string,

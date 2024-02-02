@@ -1,8 +1,8 @@
 export interface Bill {
-    id_bill: number,
+    idBill: number,
     bill_date: Date,
     status: string,
     valid: boolean,
-    id_account_buyer: number,
-    id_product: number
+    idAccountBuyer: number,
+    idProduct: number
 }

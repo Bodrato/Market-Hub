@@ -1,8 +1,10 @@
+import { Account } from "./Account";
+
 export interface Product {
-    id_product: number,
+    idProduct: number,
     description: string,
     image: string,
     name: string,
     price: number,
-    id_account: number
+    account: Account
 }

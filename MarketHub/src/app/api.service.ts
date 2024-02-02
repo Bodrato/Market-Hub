@@ -24,9 +24,21 @@ export class ApiService {
     return this.http.post(url, account) as Observable<Account>;
   }
 
-  // Get PRODUCTS
+  // GET PRODUCTS
   public getProduts(): Observable<Product[]> {
     const url = `${this.apiUrl}/products`;
     return this.http.get(url) as Observable<Product[]>;
+  }
+
+  // GET PRODUCT BY ID
+  public getProductById(id: number): Observable<Product> {
+    const url = `${this.apiUrl}/products/${id}`;
+    return this.http.get(url) as Observable<Product>;
+  }
+
+  // GET ACCOUNT BY ID
+  public getAccountById(id: number | undefined): Observable<Account> {
+    const url = `${this.apiUrl}/accounts/${id}`;
+    return this.http.get(url) as Observable<Account>;
   }
 }

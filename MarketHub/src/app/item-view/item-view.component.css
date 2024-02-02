@@ -17,6 +17,8 @@
 }
 
 .product-details {
+    margin-top: 10%;
+    margin-left: 20%;
     flex-grow: 1;
 }
 
@@ -28,6 +30,11 @@
 .product-details p {
     font-size: 1.2em;
     margin-bottom: 10px;
+}
+
+#sellerName {
+    color: black;
+    font-size: 20px;
 }
 
 .product-details button {

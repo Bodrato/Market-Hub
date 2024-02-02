@@ -1,7 +1,7 @@
-<div class="item-cart" *ngIf="product">
-    <h2>{{ product.name }}</h2>
-    <p>Precio: {{ product.price }}</p>
+<div class="item-cart">
+    <h2>{{ product?.name }}</h2>
+    <p>Precio: {{ product?.price | currency }}</p>
     <label>Cantidad:
-      <input type="number" [(ngModel)]="quantity" min="1" />
+      <input type="number" [(ngModel)]="quantity" min="1" (change)="onChangeQuantity()" />
     </label>
   </div>

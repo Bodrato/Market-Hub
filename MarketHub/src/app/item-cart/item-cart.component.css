@@ -3,6 +3,7 @@
   padding: 15px; /* Increased padding for better spacing */
   margin-bottom: 15px; /* Increased margin for better separation between items */
   border-radius: 8px; /* Rounded corners for a modern look */
+  background-color: #2c3e50;
 
   /* Shadow for a subtle lift effect */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

@@ -5,6 +5,7 @@ import { Account } from '../model/Account';
 import { ApiService } from '../api.service';
 import { Product } from '../model/Product';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,16 +17,13 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit {
-  products: Product[] = []
+  products: Product[] = [];
   errorMessage: string = '';
 
-
-  constructor(private renderer: Renderer2, private el: ElementRef, private apiService: ApiService) {}
-
+  constructor(private renderer: Renderer2, private el: ElementRef, private apiService: ApiService, private router: Router) {}
 
   ngOnInit() {
     this.loadProducts();
-    console.log(this.products.length)
     const account: Account = JSON.parse(localStorage.getItem('Account') || '{}');
   }
 
@@ -55,6 +53,9 @@ export class MainComponent implements OnInit {
             this.renderer.appendChild(productCard, productImage);
             this.renderer.appendChild(productCard, productDetails);
             this.renderer.appendChild(productContainer, productCard);
+
+            this.renderer.listen(productCard, 'click', () => this.navigateToProduct(product.idProduct));
+            this.renderer.appendChild(productContainer, productCard);
           });
         }
   }
@@ -62,7 +63,6 @@ export class MainComponent implements OnInit {
   loadProducts() {
     this.apiService.getProduts().subscribe({
       next: (data: Product[]) => { 
-        console.log(data)
         this.products = data
        },
        complete:() => {
@@ -85,6 +85,9 @@ export class MainComponent implements OnInit {
           }
       }
     });
+  }
 
+  navigateToProduct(id: number) {
+    this.router.navigate(['item-view', id]);
   }
 }

@@ -24,7 +24,7 @@ export class ApiService {
     return this.http.post(url, account) as Observable<Account>;
   }
 
-  // Get PRODUCTS
+  // GET PRODUCTS
   public getProduts(): Observable<Product[]> {
     const url = `${this.apiUrl}/products`;
     return this.http.get(url) as Observable<Product[]>;

@@ -1,8 +1,8 @@
 export interface Review {
-    id_review: number,
+    idReview: number,
     comments: string,
     rating: number,
     review_date: Date,
-    id_account_buyer: number,
-    id_account_seller: number
+    idAccountBuyer: number,
+    idAccountSeller: number
 }

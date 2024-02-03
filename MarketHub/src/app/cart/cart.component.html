@@ -1,8 +1,14 @@
 <app-header></app-header>
-<div>
-    <div>
-        <app-item-cart [idProduct]="2"></app-item-cart>
-        <app-item-cart [idProduct]="3"></app-item-cart>
-    </div>
+<div class="cart-container">
+  <div class="cart-items">
+    <app-item-cart
+      *ngFor="let item of cartItems"
+      [idProduct]="item.idProduct"
+    ></app-item-cart>
+  </div>
+  <div class="cart-summary">
+    <h2>Total: {{ total | currency }}</h2>
+    <button (click)="onBuyClick()">Comprar</button>
+  </div>
 </div>
 <app-footer></app-footer>

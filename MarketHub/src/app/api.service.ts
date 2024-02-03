@@ -41,4 +41,11 @@ export class ApiService {
     const url = `${this.apiUrl}/accounts/${id}`;
     return this.http.get(url) as Observable<Account>;
   }
+
+  // PUT ACCOUNT (Update)
+  public updateAccount(account: Account): Observable<Account> {
+    const url = `${this.apiUrl}/accounts/${account.idAccount}`; 
+    return this.http.put(url, account) as Observable<Account>;
+  }
+  
 }

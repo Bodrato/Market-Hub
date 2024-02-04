@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ItemCartComponent } from '../item-cart/item-cart.component';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -11,16 +11,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements AfterViewInit{
+export class CartComponent implements AfterViewInit, OnInit{
+
   @ViewChildren(ItemCartComponent) itemCartComponents!: QueryList<ItemCartComponent>;
 
 
-  cartItems: { idProduct: number }[] = [
-    { idProduct: 2 },
-    { idProduct: 3 },
-  ];
+  cartItems: { idProduct: number }[] = [];
 
   total: number = 0;
+
+  ngOnInit(): void {
+    console.log(this.getCarts())
+    this.cartItems = this.getCarts()
+  }
 
   ngAfterViewInit(): void {
     this.updateTotal();
@@ -42,4 +45,24 @@ export class CartComponent implements AfterViewInit{
   onBuyClick(): void {
     console.log('Compra realizada');
   }
+
+  getCarts() {
+    let cartItems: { idProduct: number }[] = [];
+    const idsString = localStorage.getItem('cart');
+  
+    if (idsString) {
+      const idsArray = idsString.split(',');
+  
+      for (let idString of idsArray) {
+        const idNumber = Number.parseInt(idString);
+  
+        if (!isNaN(idNumber) && !cartItems.some(item => item.idProduct === idNumber)) {
+          cartItems.push({ idProduct: idNumber });
+        }
+      }
+    }
+  
+    return cartItems;
+  }  
+  
 }

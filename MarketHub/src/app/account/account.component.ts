@@ -53,7 +53,7 @@ export class AccountComponent implements OnInit {
     const updatedAccount = { ...this.accountForm.value, idAccount: this.loggedInAccount?.idAccount } as Account;
 
     this.apiService.updateAccount(updatedAccount).subscribe({
-      next: (data) => { },
+      next: (data) => { localStorage.setItem('Account', JSON.stringify(data)) },
       complete: () => { this.router.navigate(['home']); },
       error: (e) => {
         console.error('Error updating account:', e);

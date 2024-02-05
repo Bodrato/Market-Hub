@@ -4,6 +4,7 @@
     <app-item-cart
       *ngFor="let item of cartItems"
       [idProduct]="item.idProduct"
+      [quantity]="item.quantity"
     ></app-item-cart>
   </div>
   <div class="cart-summary">

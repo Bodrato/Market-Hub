@@ -16,7 +16,7 @@ export class CartComponent implements AfterViewInit, OnInit{
   @ViewChildren(ItemCartComponent) itemCartComponents!: QueryList<ItemCartComponent>;
 
 
-  cartItems: { idProduct: number }[] = [];
+  cartItems: { idProduct: number, quantity:number }[] = [];
 
   total: number = 0;
 
@@ -35,6 +35,8 @@ export class CartComponent implements AfterViewInit, OnInit{
       itemCart.totalChanged.subscribe((t) => {
         this.total = 0
         this.itemCartComponents.forEach((item) => {
+          if(item.quantity == undefined)
+            item.quantity = 1
           if(item.product != null)
             this.total += item.product.price * item.quantity ;
         });
@@ -47,7 +49,7 @@ export class CartComponent implements AfterViewInit, OnInit{
   }
 
   getCarts() {
-    let cartItems: { idProduct: number }[] = [];
+    let cartItems: { idProduct: number, quantity: number }[] = [];
     const idsString = localStorage.getItem('cart');
   
     if (idsString) {
@@ -56,13 +58,20 @@ export class CartComponent implements AfterViewInit, OnInit{
       for (let idString of idsArray) {
         const idNumber = Number.parseInt(idString);
   
-        if (!isNaN(idNumber) && !cartItems.some(item => item.idProduct === idNumber)) {
-          cartItems.push({ idProduct: idNumber });
+        if (!isNaN(idNumber)) {
+          const existingItem = cartItems.find(item => item.idProduct === idNumber);
+  
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            cartItems.push({ idProduct: idNumber, quantity: 1 });
+          }
         }
       }
     }
   
     return cartItems;
-  }  
+  }
+  
   
 }

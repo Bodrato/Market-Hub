@@ -17,11 +17,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class ItemCartComponent implements OnInit {
   @Input() idProduct: number | undefined;
+  @Input() quantity: number | undefined
   @Output() totalChanged: EventEmitter<number> = new EventEmitter<number>();
 
   errorMessage: string = '';
   product: Product | undefined;
-  quantity: number = 1;
 
   constructor(private apiService: ApiService) {}
 
@@ -63,6 +63,9 @@ export class ItemCartComponent implements OnInit {
 
   updateTotal(): void {
     if (this.product != null) {
+      if(this.quantity == undefined){
+        this.quantity = 1
+      }
       const total = this.product.price * this.quantity || 0;
       this.totalChanged.emit(total);
     }
